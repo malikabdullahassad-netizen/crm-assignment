@@ -6,7 +6,7 @@ A simple CRM lead management app with a React frontend and Express/MongoDB backe
 
 - `backend/` - Express API server
 - `frontend/` - React + Vite user interface
-- `frontend/public/_redirects` - Netlify redirect rule for SPA routing
+
 
 ## Backend setup
 
@@ -54,11 +54,7 @@ NODE_ENV=development
 VITE_API_URL=http://localhost:5000/api
 ```
 
-## Deployment notes
 
-- Frontend is deployed to Netlify.
-- Make sure Netlify is configured to publish from `frontend/dist`.
-- The file `frontend/public/_redirects` routes all paths to `index.html` so client-side React Router works on direct refresh.
 
 ## API routes
 
@@ -73,8 +69,4 @@ VITE_API_URL=http://localhost:5000/api
 - `POST /api/contact-persons`
 - `DELETE /api/contact-persons/:id`
 
-## Notes
 
-- The frontend uses `VITE_API_URL` to call the backend API.
-- The backend uses `MONGODB_URI`, `JWT_SECRET`, and `JWT_REFRESH_SECRET`.
-- If the app returns a 404 on direct route refresh, ensure the SPA redirect is present in `frontend/public/_redirects`.
