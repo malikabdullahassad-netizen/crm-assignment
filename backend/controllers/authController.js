@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const config = require('../config/env');
 const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
 const generateRefreshToken = require('../utils/generateRefreshToken');
@@ -6,7 +7,7 @@ const generateRefreshToken = require('../utils/generateRefreshToken');
 const setRefreshTokenCookie = (res, token) => {
   res.cookie('refreshToken', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: config.isProduction,
     sameSite: 'strict',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
@@ -90,7 +91,7 @@ const refreshAccessToken = async (req, res) => {
   try {
     const decoded = jwt.verify(
       refreshToken,
-      process.env.JWT_REFRESH_SECRET
+      config.jwtRefreshSecret
     );
 
     const user = await User.findById(decoded.id).select('-password');
@@ -116,7 +117,7 @@ const refreshAccessToken = async (req, res) => {
 const logoutUser = async (req, res) => {
   res.clearCookie('refreshToken', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: config.isProduction,
     sameSite: 'strict',
   });
 

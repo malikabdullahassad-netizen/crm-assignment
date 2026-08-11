@@ -1,13 +1,10 @@
 const jwt = require('jsonwebtoken');
+const config = require('../config/env');
 
 const generateRefreshToken = (id) => {
-  if (!process.env.JWT_REFRESH_SECRET) {
-    throw new Error('JWT_REFRESH_SECRET is not defined');
-  }
-
   return jwt.sign(
     { id },
-    process.env.JWT_REFRESH_SECRET,
+    config.jwtRefreshSecret,
     {
       expiresIn: '7d',
     }
